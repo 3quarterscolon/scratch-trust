@@ -1,64 +1,65 @@
 function getworth(username) {
 
- fetch("https://scratchdb.lefty.one/v3/forum/user/info/" + encodeURIComponent(username))
+	fetch("https://scratchdb.lefty.one/v3/forum/user/info/" + encodeURIComponent(username))
 
- .then(response => response.json())
+		.then(response => response.json())
 
-  .then(data => alertRating(data));
+		.then(data => alertRating(data));
 
- };
+};
 
- 
 
- function errorNotOnScratch() {
 
- 				alert("This user does not exist.") }
+function errorNotOnScratch() {
+
+	alert("This user does not exist.")
+}
 
 function alertRating(data) {
 
-if (data.counts == null) {
+	if (data.counts == null) {
 
-errorNotOnScratch();
+		errorNotOnScratch();
 
-}else{
+	} else {
 
-var b = data.counts.total.count;
+		var b = data.counts.total.count;
 
-  if (b == "") {
+		if (b == "") {
 
-    setTimeout(alertRating, 250);
+			setTimeout(alertRating, 250);
 
-  } else if (b >= 15000) {
+		} else if (b >= 15000) {
 
-    alert(`Veteran - ${b} posts!`);
+			alert(`Veteran - ${b} posts!`);
 
-  } else if (b >= 10000) {
+		} else if (b >= 10000) {
 
-    alert(`Experienced! - ${b} posts!`);
+			alert(`Experienced! - ${b} posts!`);
 
-	} else if (b >= 5000) {
+		} else if (b >= 5000) {
 
-    alert(`Trusty - ${b} posts!`);
+			alert(`Trusty - ${b} posts!`);
 
-  } else if (b >= 1000) {
+		} else if (b >= 1000) {
 
-    alert(`Helper - ${b} posts!`);
+			alert(`Helper - ${b} posts!`);
 
-  } else if (b >= 500) {
+		} else if (b >= 500) {
 
-    alert(`Assistive Trainee - ${b} posts!`);
+			alert(`Assistive Trainee - ${b} posts!`);
 
-  } else if (b >= 100) {
+		} else if (b >= 100) {
 
-  	alert(`Trainee - ${b} posts!`);
+			alert(`Trainee - ${b} posts!`);
 
-  } else {
+		} else {
 
-    alert(`Newcomer - ${b} posts!`);
+			alert(`Newcomer - ${b} posts!`);
 
-  }
+		}
 
- } 
+	}
 
 }
 
@@ -66,8 +67,6 @@ let scratchers = ["Za-Chary", "Paddle2See", "Cheddargirl", "griffpatch", "Chrisg
 
 window.onload = function() {
 
-  document.getElementById("username").value = scratchers[Math.floor(Math.random() * scratchers.length)];
+	document.getElementById("username").value = scratchers[Math.floor(Math.random() * scratchers.length)];
 
-} 
-
- 
+}
