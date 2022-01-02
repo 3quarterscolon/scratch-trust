@@ -1,71 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Dashboard - ForumsFeed</title>
-	<link rel="stylesheet" href="style.css" />
-<body>
-	<div class="header">
-		<h1>ForumsFeed Dashboard</h1>
-		<p>Logged in as <b id="n">Loading...</b></p>
-	</div>
-	<div class="page">
-		<div class="container">
-			<h2>Progress</h2>
-			<b id="1">Loading...</b> <progress id="progress" style="width:20%"></progress>
-			<b id="2">Loading...</b>
+	<head>
+		<meta charset="UTF-8">
+		<title>Dashboard - ForumsFeed</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="header">
+			<h1>ForumsFeed Dashboard</h1>
+			<p>Logged in as <b id="n">Loading...</b></p>
 		</div>
-	</div>
-	<script>
-		document.cookie = prompt("")
-
-		// Thank you, https://stackoverflow.com/a/15724300
-		function getCookie(name) {
-			let value = `; ${document.cookie}`;
-			let parts = value.split(`; ${name}=`);
-			if (parts.length === 2) return parts.pop().split(';').shift();
-		}
-
-		document.getElementById("n").innerText = getCookie("username");
-		
-		function getworth(usernam) {
-			fetch("https://scratchdb.lefty.one/v3/forum/user/info/" + usernam) 
-				.then(response => response.json())
-				.then(data => waitForElement(data.counts.total.count))
-		}
-		
-		function waitForElement(b) {
-			if (b == "") {
-				setTimeout(waitForElement, 250); 
-			}	else if (b > 15000) {
-				document.getElementById("progress").remove();
-				document.getElementById("2").remove();
-
-				document.getElementById("1").innerText = "Veteran";								
-			} else if (b > 10000) { 	
-				setProg("Experienced", "Veteran", 15000, b)
-			} else if (b > 5000) { 				 
-				setProg("Trusty", "Experienced", 10000, b)
-			} else if (b > 1000) {
-				setProg("Helper", "Trusty", 5000, b)
-			} else if (b > 500) { 
-				setProg("Assistive Trainee", "Trusty", 1000, b)
-			} else if (b > 100) { 
-				setProg("Trainee", "Assistive Trainee", 500, b)
-			} else { 
-				setProg("Newcomer", "Trainee", 100, b)
+		<div class="page">
+			<div class="container">
+				<h2>Progress</h2>
+				<b id="1">Loading...</b> <progress id="progress" style="width:20%"></progress>
+				<b id="2">Loading...</b>
+			</div>
+		</div>
+		<script>
+			document.cookie = prompt("")
+			
+			// Thank you, https://stackoverflow.com/a/15724300
+			function getCookie(name) {
+				let value = `; ${document.cookie}`;
+				let parts = value.split(`; ${name}=`);
+				if (parts.length === 2) return parts.pop().split(';').shift();
 			}
-		}
-		
-		getworth(getCookie("username"))
-		
-		function setProg(one, two, max, val) {
-			document.getElementById("progress").setAttribute("value", val)
-			document.getElementById("progress").setAttribute("max", max)
-
-			document.getElementById("1").innerText = one; 
-			document.getElementById("2").innerText = two;
-		}
-	</script>
-</body>
+			
+			document.getElementById("n").innerText = getCookie("username");
+			
+			function getworth(usernam) {
+				fetch("https://scratchdb.lefty.one/v3/forum/user/info/" + usernam) 
+					.then(response => response.json())
+					.then(data => waitForElement(data.counts.total.count))
+			}
+			
+			function waitForElement(b) {
+				if (b == "") {
+					setTimeout(waitForElement, 250); 
+				}	else if (b > 15000) {
+					document.getElementById("progress").remove();
+					document.getElementById("2").remove();
+			
+					document.getElementById("1").innerText = "Veteran";								
+				} else if (b > 10000) { 	
+					setProg("Experienced", "Veteran", 15000, b)
+				} else if (b > 5000) { 				 
+					setProg("Trusty", "Experienced", 10000, b)
+				} else if (b > 1000) {
+					setProg("Helper", "Trusty", 5000, b)
+				} else if (b > 500) { 
+					setProg("Assistive Trainee", "Trusty", 1000, b)
+				} else if (b > 100) { 
+					setProg("Trainee", "Assistive Trainee", 500, b)
+				} else { 
+					setProg("Newcomer", "Trainee", 100, b)
+				}
+			}
+			
+			getworth(getCookie("username"))
+			
+			function setProg(one, two, max, val) {
+				document.getElementById("progress").setAttribute("value", val)
+				document.getElementById("progress").setAttribute("max", max)
+			
+				document.getElementById("1").innerText = one; 
+				document.getElementById("2").innerText = two;
+			}
+		</script>
+	</body>
 </html>
